@@ -55,7 +55,7 @@ const config = (passport) => {
                 return done(null, false, {message: "invalid username and/or password.."});
             }
             // OK
-            const isADorID = {isAdmin: user.isAdmin,USERID: Number(user.id)}; // isAdmin と user.id をisADorIDに入れてる
+            const isADorID = {isAdmin: user.isAdmin,id: Number(user.id)}; // isAdmin と user.id をisADorIDに入れてる
             return done(null, isADorID); // bigintが使えないからNumberに変える
                                                             // doneに書くとreq.userに情報が格納される
         } catch (e) {
@@ -65,7 +65,7 @@ const config = (passport) => {
     // セッションストアに保存
     passport.serializeUser((user, done) => {
         process.nextTick(() => {
-            done(null, {id: user.id, name: user.name});
+            done(null, {id: user.id, name: user.name, isAdmin: user.isAdmin});
         });
     });
     // セッションストアから復元

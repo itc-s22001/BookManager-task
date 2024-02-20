@@ -54,7 +54,16 @@ router.post("/register", [
 router.post("/login", passport.authenticate("local", {
   failWithError: true
 }), (req, res, next) => {
-  res.status(200).json({message: "ログインOK",isAdmin: req.user});
+  res.status(200).json({message: "ログインOK",isAdmin: req.user.isAdmin});
+});
+
+// ログイン状態チェック
+router.get("/check", (req, res, next) => {
+  // 未ログインなら、Error オブジェクトを作って、ステータスを設定してスロー
+  if (!req.user) {
+    res.status(401).json({message: "NG"});
+  }
+  res.status(200).json({message: "OK", isAdmin: req.user.isAdmin});
 });
 
 module.exports = router;
