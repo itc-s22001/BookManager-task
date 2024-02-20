@@ -66,4 +66,11 @@ router.get("/check", (req, res, next) => {
   res.status(200).json({message: "OK", isAdmin: req.user.isAdmin});
 });
 
+// ログアウト
+router.get("/logout", (req, res, next) =>  {
+  req.logout((err) => {
+    res.status(200).json({message: "OK"});
+  });
+});
+
 module.exports = router;
