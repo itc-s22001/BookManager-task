@@ -17,15 +17,15 @@ router.get('/', (req, res, next) => {
 router.post("/register", [
   check("name").notEmpty({ignore_whitespace: true}),
   check("email").notEmpty({ignore_whitespace: true}),
-  check("pass").notEmpty({ignore_whitespace: true})
+  check("password").notEmpty({ignore_whitespace: true})
 ], async (req, res, next) => {
   if (!validationResult(req).isEmpty()) {
     res.status(400).json({message: "username, email and/or password is empty"});
     return
   }
-  const {name, email, pass} = req.body;
+  const {name, email, password} = req.body;
   const salt = generateSalt();
-  const hashed = calcHash(pass, salt);
+  const hashed = calcHash(password, salt);
   try {
     await prisma.users.create({
       data: {

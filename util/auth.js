@@ -39,7 +39,7 @@ const calcHash = (plain, salt) => {
 const config = (passport) => {
     const prisma = new PrismaClient();
     passport.use(new LocalStrategy({
-        usernameField: "email", passwordField: "pass"
+        usernameField: "email", passwordField: "password"
     }, async ( email, password, done) => {
         try {
             const user = await prisma.users.findUnique({
