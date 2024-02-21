@@ -5,6 +5,7 @@ const {check, validationResult} = require("express-validator");
 const router = express.Router();
 const prisma = new PrismaClient();
 
+// 書籍情報登録
 router.post("/book/create", [
     check('publishDate').isISO8601(),
 ], async (req, res, next) => {
@@ -28,6 +29,27 @@ router.post("/book/create", [
         res.status(201).json({message: "OK"});
     } catch (e) {
         console.log(e);
+        res.status(400).json({message: "NG"});
+    }
+});
+
+// 書籍情報更新
+router.put("/book/update",async (req, res, next) => {
+    const {bookId,isbn13, title, author, publishDate} = req.body;
+
+    try {
+        await prisma.books.update({
+            where: {id: bookId},
+            data: {
+                isbn13: (isbn13),
+                title,
+                author,
+                publishDate
+            }
+        });
+        res.status(200).json({message: "OK"});
+    } catch (e) {
+        console.log(e)
         res.status(400).json({message: "NG"});
     }
 });
