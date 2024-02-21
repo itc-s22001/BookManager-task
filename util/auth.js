@@ -65,7 +65,7 @@ const config = (passport) => {
     // セッションストアに保存
     passport.serializeUser((user, done) => {
         process.nextTick(() => {
-            done(null, {id: user.id, name: user.name, isAdmin: user.isAdmin});
+            done(null, {id: user.id, name: user.name, isAdmin: user.isAdmin}); //　ログイン状態確認のときに書いた
         });
     });
     // セッションストアから復元

@@ -8,6 +8,7 @@ const {config} = require("./util/auth");
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/user');
+const adminRouter = require("./routes/admin");
 
 const app = express();
 
@@ -32,5 +33,6 @@ app.use(config(passport));
 
 app.use('/', indexRouter);
 app.use('/user', usersRouter);
+app.use('/admin', adminRouter);
 
 module.exports = app;
